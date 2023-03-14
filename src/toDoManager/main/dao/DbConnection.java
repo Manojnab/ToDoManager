@@ -1,4 +1,4 @@
-package src.toDoManager.main.dao;
+package toDoManager.main.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

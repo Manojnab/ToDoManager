@@ -1,16 +1,12 @@
-package src.toDoManager.main;
+package toDoManager.main;
 
 import java.util.Scanner;
 
-import src.toDoManager.main.dao.UserDaoWithoutDb;
-import src.toDoManager.main.entity.Task;
+import toDoManager.main.dao.UserDaoWithDb;
+import toDoManager.main.dao.UserDaoWithoutDb;
+import toDoManager.main.entity.Task;
 
-/*import database.CustomerDatabase;
-import database.CustomerDbConnection;
-import model.Customer;
-import service.CustomerService;
-*/
-public class UserMenu {
+public class UserMenuWithDb {
 
 	public static void userMenu()
 	{
@@ -32,7 +28,7 @@ public class UserMenu {
 		Scanner sc = new Scanner(System.in);
 		String email, password, phone, city, name;
 		int choice;
-		UserDaoWithoutDb userDaoWithoutDb=new UserDaoWithoutDb();
+		UserDaoWithDb userDaoWithDb=new UserDaoWithDb();
 		boolean flag = true;
 		do {
 			// Home page
@@ -49,8 +45,13 @@ public class UserMenu {
 				email=sc.next();
 				System.out.println("Enter password");
 				password=sc.next();
-				if(userDaoWithoutDb.login(email, password)) {
-					userDashboard(sc,email);
+				try {
+					if(userDaoWithDb.login(email, password)) {
+						userDashboard(sc,email);
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				break;
 			case 2:
@@ -72,7 +73,7 @@ public class UserMenu {
 	{
 		boolean flag=true;
 		//Customer currCustomer=new Customer();
-		UserDaoWithoutDb userDaoWithoutDb=new UserDaoWithoutDb();
+		UserDaoWithDb userDaoWithDb=new UserDaoWithDb();
 		try {
 		
 		//currCustomer=customerService.getCustomerByEmail(email);
@@ -95,7 +96,7 @@ public class UserMenu {
 			String assignmentChoice=sc.next();
 			if(assignmentChoice.equalsIgnoreCase("yes")) {
 				try {
-					userDaoWithoutDb.addTask(new Task(sequenceGenerator(),title, text, email, false));
+					userDaoWithDb.addTask(new Task(sequenceGenerator(),title, text, email, false));
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -105,7 +106,7 @@ public class UserMenu {
 				System.out.println("Enter the email address of the assignee");
 				String assigneeEmail=sc.next();
 				try {
-					userDaoWithoutDb.addTask(new Task(sequenceGenerator(),title, text, assigneeEmail, false));
+					userDaoWithDb.addTask(new Task(sequenceGenerator(),title, text, assigneeEmail, false));
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -115,7 +116,12 @@ public class UserMenu {
 			break;
 		case 2:
 			System.out.println("update existing task-----below is the list of existing task");
-			System.out.println(userDaoWithoutDb.seeAllMyTasks(email));
+			try {
+				System.out.println(userDaoWithDb.seeAllMyTasks(email));
+			} catch (Exception e4) {
+				// TODO Auto-generated catch block
+				e4.printStackTrace();
+			}
 			System.out.println("enter the task id that needs to be updated");
 			int id=sc.nextInt();
 			System.out.println("Enter the assignee name");
@@ -126,34 +132,69 @@ public class UserMenu {
 			boolean newStatus=sc.nextBoolean();
 			System.out.println("Enter new task titile\n");
 			String newTitle=sc.next();
-			userDaoWithoutDb.updateTask(new Task(id, newTitle, newText, newAssignee, newStatus));
+			try {
+				userDaoWithDb.updateTask(new Task(id, newTitle, newText, newAssignee, newStatus));
+			} catch (Exception e3) {
+				// TODO Auto-generated catch block
+				e3.printStackTrace();
+			}
 			
 			break;
 		case 3:
 			System.out.println("delete a task-----below is the list of existing task");
-			System.out.println(userDaoWithoutDb.seeAllMyTasks(email));
+			try {
+				System.out.println(userDaoWithDb.seeAllMyTasks(email));
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 			System.out.println("Enter the id of the task that needs to be deleted");
 			id=sc.nextInt();
-			userDaoWithoutDb.deleteTask(id);
+			try {
+				userDaoWithDb.deleteTask(id);
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 			
 			break;
 		case 4:
 			System.out.println("search a task");
 			System.out.println("Enter the id of the task");
 			id=sc.nextInt();
-			userDaoWithoutDb.searchById(id);
+			try {
+				userDaoWithDb.searchById(id);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			break;
 		case 5:
 			System.out.println("see all my task");
-			System.out.println(userDaoWithoutDb.seeAllMyTasks(email));
+			try {
+				System.out.println(userDaoWithDb.seeAllMyTasks(email));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		case 6:
 			System.out.println("see completed tasks");
-			System.out.println(userDaoWithoutDb.seeAllMyCompletedTasks(email));
+			try {
+				System.out.println(userDaoWithDb.seeAllMyCompletedTasks(email));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		case 7:
 			System.out.println("see incomplete tasks");
-			System.out.println(userDaoWithoutDb.seeAllMyInCompletedTasks(email));
+			try {
+				System.out.println(userDaoWithDb.seeAllMyInCompletedTasks(email));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		case 0:
 			System.out.println("exit from application");

@@ -1,4 +1,4 @@
-package src.toDoManager.main.dao;
+package toDoManager.main.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.toDoManager.main.entity.Task;
-import src.toDoManager.main.entity.User;
+import toDoManager.main.entity.Task;
+import toDoManager.main.entity.User;
 
 public class UserDaoWithDb {
 	Connection conn = DbConnection.getConnection();

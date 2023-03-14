@@ -1,10 +1,10 @@
-package src.toDoManager.main.dao;
+package toDoManager.main.dao;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import src.toDoManager.main.entity.Task;
-import src.toDoManager.main.entity.User;
+import toDoManager.main.entity.Task;
+import toDoManager.main.entity.User;
 
 public class UserDaoWithoutDb {
 	List<User> userList=new ArrayList<User>();

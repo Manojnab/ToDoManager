@@ -1,4 +1,4 @@
-package src.toDoManager.main.entity;
+package toDoManager.main.entity;
 
 public class User {
 	private String userName;
